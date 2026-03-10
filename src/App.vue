@@ -2,11 +2,21 @@
   <div class="app">
     <header class="app__header">
       <div class="app__header-inner">
-        <div class="app__title-block">
-          <h1 class="app__title">🤖 AI Tools Directory</h1>
-          <p class="app__subtitle">
-            Discover the best AI tools across every category — curated and organised for creators, developers, and researchers.
-          </p>
+        <div class="app__topbar">
+          <div class="app__title-block">
+            <h1 class="app__title">🤖 AI Tools Directory</h1>
+            <p class="app__subtitle">
+              Discover the best AI tools across every category — curated and organised for creators, developers, and researchers.
+            </p>
+          </div>
+          <button
+            class="app__theme-toggle"
+            type="button"
+            @click="toggleTheme"
+            :aria-label="`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`"
+          >
+            <span>{{ theme === "dark" ? "☀️ Light" : "🌙 Dark" }}</span>
+          </button>
         </div>
         <div class="app__search-wrap">
           <input
@@ -57,6 +67,29 @@ import { categories } from "./data/tools.js";
 import CategorySection from "./components/CategorySection.vue";
 
 const searchQuery = ref("");
+const STORAGE_KEY = "ai-tools-theme";
+
+const getInitialTheme = () => {
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (stored === "light" || stored === "dark") {
+    return stored;
+  }
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+};
+
+const theme = ref(getInitialTheme());
+
+const applyTheme = (value) => {
+  document.documentElement.setAttribute("data-theme", value);
+  localStorage.setItem(STORAGE_KEY, value);
+};
+
+const toggleTheme = () => {
+  theme.value = theme.value === "dark" ? "light" : "dark";
+  applyTheme(theme.value);
+};
+
+applyTheme(theme.value);
 
 const totalTools = computed(() =>
   categories.reduce((sum, cat) => sum + cat.tools.length, 0)
@@ -104,6 +137,13 @@ const visibleCategories = computed(() => {
   gap: 1rem;
 }
 
+.app__topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
 .app__title {
   font-size: 1.75rem;
   font-weight: 800;
@@ -117,6 +157,28 @@ const visibleCategories = computed(() => {
   color: var(--color-text-secondary);
   margin: 0.25rem 0 0;
   max-width: 600px;
+}
+
+.app__theme-toggle {
+  border: 1px solid var(--color-border);
+  background: var(--color-card-bg);
+  color: var(--color-text-primary);
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.app__theme-toggle:hover {
+  border-color: var(--color-accent);
+}
+
+.app__theme-toggle:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-accent-focus);
 }
 
 .app__search {
@@ -199,5 +261,16 @@ const visibleCategories = computed(() => {
   font-size: 0.8rem;
   color: var(--color-text-muted);
   border-top: 1px solid var(--color-border);
+}
+
+@media (max-width: 720px) {
+  .app__topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .app__theme-toggle {
+    align-self: flex-start;
+  }
 }
 </style>
