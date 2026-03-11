@@ -77,4 +77,33 @@ const filteredTools = computed(() => {
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 1rem;
 }
+
+@media (max-width: 720px) {
+  .category {
+    margin-bottom: 2rem;
+  }
+
+  .category__header {
+    gap: 0.7rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .category__icon {
+    font-size: 1.6rem;
+  }
+
+  .category__name {
+    font-size: 1.1rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .category__description {
+    font-size: 0.82rem;
+  }
+
+  .category__grid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+}
 </style>

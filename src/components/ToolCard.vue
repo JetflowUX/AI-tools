@@ -52,6 +52,7 @@ defineProps({
   font-weight: 600;
   color: var(--color-text-primary);
   margin: 0;
+  overflow-wrap: anywhere;
 }
 
 .tool-card__external {
@@ -86,5 +87,26 @@ defineProps({
   color: var(--color-tag-text);
   border-radius: 999px;
   font-weight: 500;
+}
+
+@media (max-width: 720px) {
+  .tool-card {
+    padding: 0.95rem;
+    gap: 0.42rem;
+  }
+
+  .tool-card__name {
+    font-size: 0.94rem;
+  }
+
+  .tool-card__description {
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  .tool-card__tag {
+    font-size: 0.68rem;
+    padding: 0.18rem 0.48rem;
+  }
 }
 </style>

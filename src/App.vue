@@ -264,13 +264,80 @@ const visibleCategories = computed(() => {
 }
 
 @media (max-width: 720px) {
+  .app__header {
+    padding: 1rem 0.85rem 0.85rem;
+    backdrop-filter: blur(8px);
+  }
+
+  .app__header-inner {
+    gap: 0.75rem;
+  }
+
   .app__topbar {
     flex-direction: column;
     align-items: stretch;
+    gap: 0.65rem;
+  }
+
+  .app__title {
+    font-size: 1.3rem;
+  }
+
+  .app__subtitle {
+    font-size: 0.82rem;
+    max-width: none;
   }
 
   .app__theme-toggle {
     align-self: flex-start;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.78rem;
+  }
+
+  .app__search {
+    font-size: 0.9rem;
+    padding: 0.58rem 0.85rem;
+  }
+
+  .app__nav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 0.2rem;
+  }
+
+  .app__nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .app__nav-link {
+    flex-shrink: 0;
+    font-size: 0.76rem;
+    padding: 0.28rem 0.66rem;
+  }
+
+  .app__main {
+    padding: 1.25rem 0.85rem 2rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .app__header {
+    position: static;
+  }
+
+  .app__title {
+    font-size: 1.15rem;
+  }
+
+  .app__subtitle {
+    font-size: 0.78rem;
+  }
+
+  .app__footer {
+    font-size: 0.74rem;
+    padding: 1.1rem 0.75rem;
   }
 }
 </style>
